@@ -1,11 +1,28 @@
 <script>
-	export let name;
-</script>
+	import QuestionList from './components/questionList.svelte';
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+	let list = [ 
+		{ 
+			question: "question A",
+			text: "This is QA",
+			type: "text",
+			properties: {
+				tip : "A tip",
+			}
+		},
+		{
+			question: "question B",
+			text: "This is QB",
+			type: "radio",
+			properties: {
+				choices: () => {
+					return [ 'a','b', 'c', 'd', 'e'].map( (v) => [v, 'is ' + v] )
+				},
+				tip: "A tip"
+			}
+		}
+	];
+</script>
 
 <style>
 	main {
@@ -28,3 +45,8 @@
 		}
 	}
 </style>
+
+<main>
+	<h1> Under construction: Basic Income helper </h1>
+	<QuestionList {list} />
+</main>
