@@ -8,7 +8,8 @@
 			type: "text",
 			properties: {
 				tip : "A tip",
-			}
+			},
+			answered: false
 		},
 		{
 			question: "question B",
@@ -18,10 +19,17 @@
 				choices: () => {
 					return [ 'a','b', 'c', 'd', 'e'].map( (v) => [v, 'is ' + v] )
 				},
+				group: 'qq',
 				tip: "A tip"
-			}
+			},
+			answered: false
 		}
 	];
+
+	let pointer = 0;
+
+	list.map( (e,i) => { e.active = pointer == i })
+
 </script>
 
 <style>
@@ -48,5 +56,5 @@
 
 <main>
 	<h1> Under construction: Basic Income helper </h1>
-	<QuestionList {list} />
+	<QuestionList {list} {pointer} />
 </main>
