@@ -40,36 +40,22 @@
 	list.map( (e,i) => { e.active = pointer == i })
 </script>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
+<svelte:head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+		<!--
+	<link rel="stylesheet" href="https://gist.githubusercontent.com/zaydek/6b2e55258734deabbd2b4a284321d6f6/raw/eb3bfc511ae856d479bb2e119a35bcf10d82da97/debug-v3.css">
+		-->
+</svelte:head>
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
-
-<main>
-	<h1>Question Flow</h1>
-	{#if pointer < list.length}
-		<QuestionList {list} bind:pointer={pointer} />
-	{:else}
-		<div>
-			<h1> Completed !</h1>
-			<QuestionTable questions={list} />
-		</div>
-	{/if}
-</main>
+<section class="section">
+	<div class="container">
+		<h1 class="title">Basic Income Helper</h1>
+			{#if pointer < list.length}
+				<QuestionList {list} bind:pointer={pointer} />
+			{:else}
+				<div>
+					<h1 class="title"> Completed !</h1>
+					<QuestionTable questions={list} />
+				</div>
+			{/if}
+</section>
