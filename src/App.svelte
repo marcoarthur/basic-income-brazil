@@ -29,7 +29,6 @@
 	let pointer = 0;
 
 	list.map( (e,i) => { e.active = pointer == i })
-
 </script>
 
 <style>
@@ -55,6 +54,6 @@
 </style>
 
 <main>
-	<h1> Under construction: Basic Income helper </h1>
+	<h1>Question Flow</h1>
 	<QuestionList {list} {pointer} />
 </main>

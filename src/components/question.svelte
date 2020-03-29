@@ -6,10 +6,11 @@
   export let type = "text";
   export let properties;
   export let active = false;
+  export let input;
 
 </script>
 
 {#if active }
-  <label for="{question}">{text}</label>
-  <QForm {type} {properties} />
+  <h2><label for="{question}">{text}</label></h2>
+  <QForm {type} {properties} bind:input={input} />
 {/if}

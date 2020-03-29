@@ -3,15 +3,29 @@
 
   export let list = [];
   export let pointer;
+  let answer;
+  let debug = true;
 
   function next() {
-    // get question
+    // save answer
+    list[pointer].answer = answer;
     list[pointer].answered = true;
+
+    if ( debug ) {
+      console.log(list[pointer]);
+    }
 
     // go next
     pointer = pointer < list.length ? pointer + 1 : pointer;
     list.map( (e,i) => { e.active = pointer == i })
-    // console.log(list[pointer]);
+
+    if ( debug ) {
+      console.log(list[pointer]);
+    }
+  }
+
+  function previous() {
+    console.log('previous');
   }
 </script>
 
@@ -24,8 +38,9 @@
 <ul class="qlist">
   {#each list as q, i}
     <li class="item">
-      <Question {...q} hidden={!q.active} />
+      <Question {...q} hidden={!q.active} bind:input={answer}/>
       <button on:click={next} hidden={!q.active}>Next</button>
+      <button on:click={previous} hidden={!q.active} disabled={true}>Previous</button>
    </li>
   {/each}
 </ul>
