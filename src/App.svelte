@@ -1,27 +1,43 @@
 <script>
 	import QuestionList from './components/questionList.svelte';
+	import QuestionTable from './components/questionTable.svelte';
 
 	let list = [ 
 		{ 
 			question: "question A",
-			text: "This is QA",
+			text: "Question A ?",
 			type: "text",
 			properties: {
 				tip : "A tip",
-			}
+			},
+			answered: false
 		},
 		{
 			question: "question B",
-			text: "This is QB",
+			text: "Question B ?",
 			type: "radio",
 			properties: {
 				choices: () => {
-					return [ 'a','b', 'c', 'd', 'e'].map( (v) => [v, 'is ' + v] )
+					return [ 'a','b', 'c', 'd', 'e'].map( (v) => ( { value: v, label: 'is ' + v } ) )
 				},
+				group: 'qq',
 				tip: "A tip"
-			}
-		}
+			},
+			answered: false
+		},
+		{ 
+			question: "question C",
+			text: "Question C ?",
+			type: "text",
+			properties: {
+				tip : "A tip",
+			},
+			answered: false
+		},
 	];
+
+	let pointer = 0;
+	list.map( (e,i) => { e.active = pointer == i })
 </script>
 
 <style>
@@ -47,6 +63,13 @@
 </style>
 
 <main>
-	<h1> Under construction: Basic Income helper </h1>
-	<QuestionList {list} />
+	<h1>Question Flow</h1>
+	{#if pointer < list.length}
+		<QuestionList {list} bind:pointer={pointer} />
+	{:else}
+		<div>
+			<h1> Completed !</h1>
+			<QuestionTable questions={list} />
+		</div>
+	{/if}
 </main>
