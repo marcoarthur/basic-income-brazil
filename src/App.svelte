@@ -4,7 +4,7 @@
 	let list = [ 
 		{ 
 			question: "question A",
-			text: "This is QA",
+			text: "Question A ?",
 			type: "text",
 			properties: {
 				tip : "A tip",
@@ -13,7 +13,7 @@
 		},
 		{
 			question: "question B",
-			text: "This is QB",
+			text: "Question B ?",
 			type: "radio",
 			properties: {
 				choices: () => {
@@ -23,11 +23,19 @@
 				tip: "A tip"
 			},
 			answered: false
-		}
+		},
+		{ 
+			question: "question C",
+			text: "Question C ?",
+			type: "text",
+			properties: {
+				tip : "A tip",
+			},
+			answered: false
+		},
 	];
 
 	let pointer = 0;
-
 	list.map( (e,i) => { e.active = pointer == i })
 </script>
 
@@ -55,5 +63,9 @@
 
 <main>
 	<h1>Question Flow</h1>
-	<QuestionList {list} {pointer} />
+	{#if pointer < list.length}
+		<QuestionList {list} bind:pointer={pointer} />
+	{:else}
+		<h1> Completed !</h1>
+	{/if}
 </main>
