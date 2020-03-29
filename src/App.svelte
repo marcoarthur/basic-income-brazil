@@ -18,7 +18,7 @@
 			type: "radio",
 			properties: {
 				choices: () => {
-					return [ 'a','b', 'c', 'd', 'e'].map( (v) => [v, 'is ' + v] )
+					return [ 'a','b', 'c', 'd', 'e'].map( (v) => ( { value: v, label: 'is ' + v } ) )
 				},
 				group: 'qq',
 				tip: "A tip"
