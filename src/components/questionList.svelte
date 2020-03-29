@@ -20,7 +20,7 @@
   function previous() {
     // set pointer
     pointer--;
-    list[pointer].answer = undefined;
+    answer = list[pointer].answer;
     list[pointer].answered = false;
 
     // update list
@@ -29,22 +29,24 @@
 </script>
 
 <style>
-  .qlist {
+  .question-list {
     list-style-type: none;
   }
 </style>
 
-<div>
-  <ul class="qlist">
+<div class="question-list-panel">
+  <ul class="question-list">
     {#each list as q, i}
-      <li class="item">
-        <div>
+      <li class="question-list-item">
+        <div class="question-item">
           <Question {...q} hidden={!q.active} bind:input={answer}/>
         </div>
-        <div>
+
+        <div class="question-list-controls">
           <button on:click={next} hidden={!q.active}>
             {pointer < (list.length - 1) ? 'Next' : 'Finish'}
           </button>
+
           <button on:click={previous} hidden={!q.active} disabled={pointer == 0}>
             Previous
           </button>
@@ -55,9 +57,8 @@
 </div>
 
 <hr/>
-
-<h3> Questions Answered </h3>
-<div>
+<div class="question-flow-indicator">
+  <h3> Questions Answered </h3>
   {#each list as q, i}
     <label>{q.question}</label>
     <input type="checkbox" bind:checked={q.answered} disabled={true}>

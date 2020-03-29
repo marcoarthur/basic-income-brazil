@@ -1,5 +1,6 @@
 <script>
 	import QuestionList from './components/questionList.svelte';
+	import QuestionTable from './components/questionTable.svelte';
 
 	let list = [ 
 		{ 
@@ -66,6 +67,9 @@
 	{#if pointer < list.length}
 		<QuestionList {list} bind:pointer={pointer} />
 	{:else}
-		<h1> Completed !</h1>
+		<div>
+			<h1> Completed !</h1>
+			<QuestionTable questions={list} />
+		</div>
 	{/if}
 </main>
