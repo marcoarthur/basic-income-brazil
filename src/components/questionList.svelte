@@ -1,10 +1,16 @@
 <script>
   import Question from './question.svelte';
+	import { tweened } from 'svelte/motion';
+	import { cubicOut } from 'svelte/easing';
+
+	const progress = tweened(0, {
+		duration: 400,
+		easing: cubicOut
+	});
 
   export let list = [];
   export let pointer;
   let answer;
-  let debug = true;
 
   function next() {
     // save answer
@@ -15,6 +21,7 @@
     // update pointer & list
     pointer = pointer < list.length ? pointer + 1 : pointer;
     list.map( (e,i) => { e.active = pointer == i })
+    progress.set(pointer/list.length);
   }
 
   function previous() {
@@ -25,6 +32,7 @@
 
     // update list
     list.map( (e,i) => { e.active = pointer == i })
+    progress.set(pointer/list.length);
   }
 </script>
 
@@ -36,6 +44,10 @@
     display: flex;
     align-items: center;
   }
+	progress {
+		display: block;
+		width: 100%;
+	}
 </style>
 
 <section class="hero">
@@ -48,6 +60,9 @@
           <input type="checkbox" class="checkbox" bind:checked={q.answered} disabled={true}>
         </div>
       {/each }
+    </div>
+    <div class="container">
+      <progress value={$progress}></progress>
     </div>
   </div>
 </section>

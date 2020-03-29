@@ -42,9 +42,6 @@
 
 <svelte:head>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-		<!--
-	<link rel="stylesheet" href="https://gist.githubusercontent.com/zaydek/6b2e55258734deabbd2b4a284321d6f6/raw/eb3bfc511ae856d479bb2e119a35bcf10d82da97/debug-v3.css">
-		-->
 </svelte:head>
 
 <section class="section">
@@ -53,7 +50,7 @@
 			{#if pointer < list.length}
 				<QuestionList {list} bind:pointer={pointer} />
 			{:else}
-				<div>
+				<div class="hero-body">
 					<h1 class="title"> Completed !</h1>
 					<QuestionTable questions={list} />
 				</div>

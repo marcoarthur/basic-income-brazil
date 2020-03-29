@@ -11,6 +11,6 @@
 </script>
 
 {#if active }
-  <h2><label for="{question}">{text}</label></h2>
+  <label class="label" for="{question}">{text}</label>
   <QForm {type} {properties} bind:input={input} />
 {/if}
