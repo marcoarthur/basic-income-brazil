@@ -2,10 +2,10 @@
 
 ---
 
-# Basic Income helper
+# Basic Income Helper
 
 A front end app to help people in Brazil to checkout if he/she is applicable to
-basic income.
+basic income. You can test the prototype [here](http://basic-income.surge.sh)
 
 # Please Help
 
