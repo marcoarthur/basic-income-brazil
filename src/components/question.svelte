@@ -1,5 +1,6 @@
 <script>
   import QForm from './forms/input.svelte';
+  import { fly } from 'svelte/transition';
 
   export let question;
   export let text = "default question text";
@@ -11,6 +12,8 @@
 </script>
 
 {#if active }
-  <label class="label" for="{question}">{text}</label>
-  <QForm {type} {properties} bind:input={input} />
+  <div class="container" transition:fly={{y:200, duration:1500}}>
+    <label class="label" for="{question}">{text}</label>
+    <QForm {type} {properties} bind:input={input} />
+  </div>
 {/if}

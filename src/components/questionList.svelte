@@ -1,12 +1,12 @@
 <script>
   import Question from './question.svelte';
-	import { tweened } from 'svelte/motion';
-	import { cubicOut } from 'svelte/easing';
+  import { tweened } from 'svelte/motion';
+  import { cubicOut } from 'svelte/easing';
 
-	const progress = tweened(0, {
-		duration: 400,
-		easing: cubicOut
-	});
+  const progress = tweened(0, {
+    duration: 400,
+    easing: cubicOut
+  });
 
   export let list = [];
   export let pointer;
@@ -44,10 +44,10 @@
     display: flex;
     align-items: center;
   }
-	progress {
-		display: block;
-		width: 100%;
-	}
+  progress {
+    display: block;
+    width: 100%;
+  }
 </style>
 
 <section class="hero">
@@ -88,7 +88,7 @@
               Previous
             </button>
           </div>
-       </li>
+        </li>
       {/each}
     </ul>
   </div>
