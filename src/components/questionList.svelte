@@ -1,10 +1,16 @@
 <script>
   import Question from './question.svelte';
+  import { tweened } from 'svelte/motion';
+  import { cubicOut } from 'svelte/easing';
+
+  const progress = tweened(0, {
+    duration: 400,
+    easing: cubicOut
+  });
 
   export let list = [];
   export let pointer;
   let answer;
-  let debug = true;
 
   function next() {
     // save answer
@@ -15,6 +21,7 @@
     // update pointer & list
     pointer = pointer < list.length ? pointer + 1 : pointer;
     list.map( (e,i) => { e.active = pointer == i })
+    progress.set(pointer/list.length);
   }
 
   function previous() {
@@ -25,6 +32,7 @@
 
     // update list
     list.map( (e,i) => { e.active = pointer == i })
+    progress.set(pointer/list.length);
   }
 </script>
 
@@ -32,35 +40,56 @@
   .question-list {
     list-style-type: none;
   }
+  .inline {
+    display: flex;
+    align-items: center;
+  }
+  progress {
+    display: block;
+    width: 100%;
+  }
 </style>
 
-<div class="question-list-panel">
-  <ul class="question-list">
-    {#each list as q, i}
-      <li class="question-list-item">
-        <div class="question-item">
-          <Question {...q} hidden={!q.active} bind:input={answer}/>
+<section class="hero">
+  <div class="hero-body">
+    <h2 class="subtitle"> Questions Map </h2>
+    <div class="inline">
+      {#each list as q, i}
+        <div class:has-text-success={q.answered} class="inline">
+          <label>{q.question}</label>
+          <input type="checkbox" class="checkbox" bind:checked={q.answered} disabled={true}>
         </div>
-
-        <div class="question-list-controls">
-          <button on:click={next} hidden={!q.active}>
-            {pointer < (list.length - 1) ? 'Next' : 'Finish'}
-          </button>
-
-          <button on:click={previous} hidden={!q.active} disabled={pointer == 0}>
-            Previous
-          </button>
-        </div>
-     </li>
-    {/each}
-  </ul>
-</div>
+      {/each }
+    </div>
+    <div class="container">
+      <progress value={$progress}></progress>
+    </div>
+  </div>
+</section>
 
 <hr/>
-<div class="question-flow-indicator">
-  <h3> Questions Answered </h3>
-  {#each list as q, i}
-    <label>{q.question}</label>
-    <input type="checkbox" bind:checked={q.answered} disabled={true}>
-  {/each }
-</div>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle">Questions</h2>
+    <ul class="question-list">
+      {#each list as q, i}
+        <li class="question-list-item">
+          <div class="question-item">
+            <Question {...q} hidden={!q.active} bind:input={answer}/>
+          </div>
+
+          <div class="question-list-controls">
+            <button on:click={next} hidden={!q.active}>
+              {pointer < (list.length - 1) ? 'Next' : 'Finish'}
+            </button>
+
+            <button on:click={previous} hidden={!q.active} disabled={pointer == 0}>
+              Previous
+            </button>
+          </div>
+        </li>
+      {/each}
+    </ul>
+  </div>
+</section>
