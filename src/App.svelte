@@ -1,40 +1,9 @@
 <script>
 	import QuestionList from './components/questionList.svelte';
 	import QuestionTable from './components/questionTable.svelte';
+	import Questions from './js/Questions.js';
 
-	let list = [ 
-		{ 
-			question: "question A",
-			text: "Question A ?",
-			type: "text",
-			properties: {
-				tip : "A tip",
-			},
-			answered: false
-		},
-		{
-			question: "question B",
-			text: "Question B ?",
-			type: "radio",
-			properties: {
-				choices: () => {
-					return [ 'a','b', 'c', 'd', 'e'].map( (v) => ( { value: v, label: 'is ' + v } ) )
-				},
-				group: 'qq',
-				tip: "A tip"
-			},
-			answered: false
-		},
-		{ 
-			question: "question C",
-			text: "Question C ?",
-			type: "text",
-			properties: {
-				tip : "A tip",
-			},
-			answered: false
-		},
-	];
+	let list = Questions.required.questions;
 
 	let pointer = 0;
 	list.map( (e,i) => { e.active = pointer == i })
