@@ -76,10 +76,17 @@ module.exports = {
 					tip: "Não",
 				},
 				answered: false
+			},
+			{
+				question: "cidade",
+				text: "Cidade onde mora ?",
+				type: "text",
+				properties: {
+					tip: "Localidade"
+				},
+				answered: false
 			}
 		]
 	}
-
-
 
 }

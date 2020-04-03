@@ -22,23 +22,24 @@ export default class OSM {
 	}
 
 	/*
-	 * _build_query() builds an OSM link to query OSM the INSS buildings
-	 * of a city.
+	 * _build_query() builds an OSM link to query public buildings that can
+	 * receive documents for basic income.
 	 *
 	 * @memberof OSM
 	 * @param {String} city: the name of the city/state/country to run build the
 	 * query.
 	 * @see this.query()
 	 *
+	 * @returns {String} url for the query.
 	 */
 	_build_query( city ) {
 
 		let params = new URLSearchParams();
 
 		let q = `
-		[out:json];
+		[out:json][timeout:10];
 		area[name="${city}"];
-		way[building=public][name = "INSS"];
+		way(area)[building=public][name ~ "INSS"];
 		out center;
 		`;
 		params.append("data", q);

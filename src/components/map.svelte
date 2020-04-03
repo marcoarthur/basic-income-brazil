@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte';
   import OSM from '../js/OSM.js';
-  export let city = "São Paulo"; // city to search
-  export let user_location; // user location
+  export let city; // city name to search
+  let user_location; // user location
 
   var options = {
     enableHighAccuracy: true,
@@ -36,7 +36,7 @@
       console.log(user_location);
 
       // build map
-      var mymap = L.map('mapid').setView(map_center, 13);
+      var mymap = L.map('mapid').setView(map_center, 8);
       let accessToken = 'pk.eyJ1IjoibWFyY29hcnRodXIiLCJhIjoiY2p5cTlwemZyMDA0ZzNtbXRveTQ1cWNoeCJ9.6mbwTrP-IMQxK5FSzfIgQQ';
       let mapbox_url = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`;
 
@@ -48,12 +48,15 @@
           tileSize: 512,
           zoomOffset: -1,
           accessToken: accessToken
-      }).addTo(mymap);
+        }).addTo(mymap);
 
       // set markers
       data.elements.map( (w) => {
-        L.marker( [ w.center.lat, w.center.lon ] ).addTo(mymap);
+        L.marker( [ w.center.lat, w.center.lon ] )
+          .bindPopup(`<b>${w.tags.name}</b>`)
+          .addTo(mymap);
       });
+
     }).catch( (error) => { console.log("Error occured: " + error); }); 
   }
 
