@@ -37,9 +37,9 @@ export default class OSM {
 		let params = new URLSearchParams();
 
 		let q = `
-		[out:json][timeout:10];
+		[out:json];
 		area[name="${city}"];
-		way(area)[building=public][name ~ "INSS"];
+		way(area)[building=public][name ~ "INSS|CRAS|Prefeitura"];
 		out center;
 		`;
 		params.append("data", q);
