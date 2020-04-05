@@ -14,9 +14,16 @@
 
   function next() {
     // save answer
-    list[pointer].answer = answer;
-    list[pointer].answered = true;
-    answer = "";
+    if( answer ) {
+      list[pointer].answer = answer;
+      list[pointer].answered = true;
+
+      // get the next answer if we have it
+      let next_q = pointer + 1;
+      if ( list[next_q] ) {
+        answer = list[next_q].answer;
+      }
+    }
 
     // update pointer & list
     pointer = pointer < list.length ? pointer + 1 : pointer;

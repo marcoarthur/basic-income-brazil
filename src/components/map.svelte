@@ -47,7 +47,7 @@
 
   async function findPlaces() {
     let osm = new OSM();
-    const res = await fetch( osm._build_query(city) );
+    const res = await fetch( osm.query(city) );
 
     if( res.ok ) {
       const data = await res.json();
@@ -56,6 +56,13 @@
           .bindPopup(`<b>${w.tags.name}</b>`)
           .addTo(mymap);
       });
+
+      // center map and zoom in at first result
+      let el = data.elements[0];
+      if( el ) {
+        let center = [ el.center.lat, el.center.lon ];
+        mymap.setView( center, 11, {animate:true});
+      }
       return data;
     } else {
       throw new Error(res);
@@ -69,6 +76,7 @@
     initMap();
   });
 
+  // start find places as soon as possible
   let p = findPlaces();
 </script>
 
@@ -83,7 +91,10 @@
 {:then data}
   <div><p>Foram encontrados {data.elements.length} pontos de entrega</p></div>
 {:catch error} 
-  <p style="color:red">{error.message}</p>
+  <p style="color:red">
+    Ocorreu um erro na busca dos pontos de entrega {error.message}
+  </p>
 {/await}
 
-<div id="mapid"></div>
+<div id="mapid" class="container">
+</div>

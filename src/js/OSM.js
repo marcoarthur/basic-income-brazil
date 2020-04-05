@@ -12,13 +12,13 @@ export default class OSM {
 	}
 
 	/**
-	 * query() call OSM interpreter.
+	 * query() returns a query to OSM interpreter.
 	 *
 	 * @memberof OSM
 	 * @param {String} area: the name of city/state/country to run the query
 	 */
 	query( area ) {
-		return fetch( this._build_query(area) );
+		return this._build_query(area);
 	}
 
 	/*
