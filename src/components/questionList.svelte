@@ -14,9 +14,16 @@
 
   function next() {
     // save answer
-    list[pointer].answer = answer;
-    list[pointer].answered = true;
-    answer = "";
+    if( answer ) {
+      list[pointer].answer = answer;
+      list[pointer].answered = true;
+
+      // get the next answer if we have it
+      let next_q = pointer + 1;
+      if ( list[next_q] ) {
+        answer = list[next_q].answer;
+      }
+    }
 
     // update pointer & list
     pointer = pointer < list.length ? pointer + 1 : pointer;
@@ -80,12 +87,12 @@
           </div>
 
           <div class="question-list-controls">
-            <button on:click={next} hidden={!q.active}>
-              {pointer < (list.length - 1) ? 'Next' : 'Finish'}
+            <button on:click={next} hidden={!q.active} disabled={!answer}>
+              {pointer < (list.length - 1) ? 'Próxima' : 'Finalizar'}
             </button>
 
             <button on:click={previous} hidden={!q.active} disabled={pointer == 0}>
-              Previous
+              Anterior
             </button>
           </div>
         </li>
