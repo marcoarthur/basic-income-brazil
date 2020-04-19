@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import OSM from '../js/OSM.js';
+  import * as Sentry from '@sentry/browser';
   export let city; // city name to search
   let user_location; // user location
   let mymap; // map instance
@@ -26,8 +27,11 @@
   }
 
   function initMap() { 
+    if( ! user_location ) {
+      Sentry.captureException( new Error("Cannot find User location") );
+    }
+
     let map_center = user_location || [ -23, -44 ];
-    console.log(user_location);
 
     // build map
     mymap = L.map('mapid').setView(map_center, 8);
